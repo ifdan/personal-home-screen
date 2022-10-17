@@ -25,6 +25,11 @@ body {
   color: rgba(255,255,255,.87);
 }
 
+.intro-container {
+  background-color: rgb(41, 42, 45);
+  justify-content: center;
+}
+
 .stories-container {
   background-color: rgb(41, 42, 45);
   justify-content: center;
@@ -38,7 +43,40 @@ body {
   max-width: 40rem;
 }
 
-.stories-card {
+.name-col {
+  max-width: 40rem;
+}
+
+.weather-col {
+  max-width: 40rem;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.weather-card {
+  max-height: 6rem;
+  max-width: 17rem;
+  margin-top: 2rem;
+}
+
+.weather-card > .card-body {
+  padding: 0 1rem 0 0;
+  display: flex;
+}
+
+.weather-card .weather-text-container {
+  display: flex;
+  flex-wrap: wrap;
+  align-content: center;
+}
+
+.weather-card .card-text {
+  margin-bottom: 0;
+  width: 100%;
+}
+
+.stories-card,
+.weather-card {
   background-color: rgb(32, 33, 36);
   border-width: 0;
 }
