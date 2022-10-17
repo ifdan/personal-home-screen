@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Container, Row, Col, Form, Button, InputGroup } from 'react-bootstrap';
+import '../styles/globalStyles.css';
 import StoriesCard from "../components/StoriesCard";
 import WeatherCard from "../components/WeatherCard";
 
@@ -8,17 +9,17 @@ const topNewsUrl = 'https://newsapi.org/v2/top-headlines?country=us&category=';
 const geoURL = 'https://api.openweathermap.org/geo/1.0/zip?zip=';
 const weatherURL = 'https://api.openweathermap.org/data/2.5/forecast';
 
-const newsKey = 'bd7aaa8241d74f6ba1434a431589421d';
+const newsKey = '4fff2f4a3b08463eae2ecbb4cb05901a';
 const weatherKey = '4d9c706af9a981973446c9fe7d1decac';
 
-const zipCode = '33436';
+const zipCode = '33467';
 
 function App() {
   const [topStories, setTopStories] = useState([]);
   const [customSearch, setCustomSearch] = useState([]);
-  const [gettingData, setGettingData] = useState(true);
   const [inputValue, setInputValue] = useState('');
   const [canSearch, setCanSearch] = useState(false);
+  const [location, setLocation] = useState();
   const [lat, setLat] = useState();
   const [lon, setLon] = useState();
   const [userWeather, setUserWeather] = useState();
@@ -35,8 +36,8 @@ function App() {
       }
     }
   
-    // urls()
-    // .catch(console.warn);
+    urls()
+    .catch(console.warn);
   }, []);
 
   useEffect(() => {
@@ -47,8 +48,8 @@ function App() {
         setCustomSearch(data.articles);
         setCanSearch(false);
       }
-      // getNewsInfo()
-      // .catch(console.warn);
+      getNewsInfo()
+      .catch(console.warn);
     }
   }, [canSearch]);
 
@@ -56,6 +57,7 @@ function App() {
     async function getGeoInfo() {
       const response = await fetch(`${geoURL}${zipCode},US&appid=${weatherKey}`)
       const data = await response.json();
+      setLocation(data.name);
       setLat(data.lat);
       setLon(data.lon);
     }
@@ -99,25 +101,35 @@ function App() {
           </Form>
         </Col>
       </Row>
+      <Row className="intro-container">
+          <Col lg={6} className="name-col">
+            <h2 className="name">Here is your briefing&#44; Dan.</h2>
+          </Col>
+          <Col lg={6} className="weather-col">
+            <div className="widget-container">
+              <WeatherCard userWeather={userWeather} location={location} />
+            </div>
+          </Col>
+      </Row>
       <Row className="stories-container">
         <Col lg={6} className="stories-col">
-          <h3 className="mt-4">Recently Searched</h3>
-          {customSearch.length === 0 &&
-            <p className="stories-message">
-              Your Recently Searched Articles Will be Here.
-            </p>
-          }
-          {/* be specific and add a check in the component */}
-          <StoriesCard stories={customSearch} />
+          <div className="widget-container">
+            <h3 className="search-headline">Recently Searched</h3>
+            {customSearch.length === 0 &&
+              <p className="stories-message">
+                Your Recently Searched Articles Will be Here.
+              </p>
+            }
+            {/* be specific and add a check in the component */}
+            <StoriesCard stories={customSearch} />
+          </div>
         </Col>
         <Col lg={6} className="stories-col">
-          <h3 className="mt-4">Top Stories</h3>
-          {/* be specific and add a check in the component */}
-          <StoriesCard stories={topStories} />
-        </Col>
-        <Col>
-          {/* <h3 className="mt-4">Today's Weather</h3>
-          <WeatherCard userWeather={userWeather} /> */}
+          <div className="widget-container">
+            <h3 className="stories-headline">Top Stories</h3>
+            {/* be specific and add a check in the component */}
+            <StoriesCard stories={topStories} />
+          </div>
         </Col>
       </Row>
     </Container>
