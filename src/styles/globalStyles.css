@@ -1,0 +1,53 @@
+body {
+  color: rgb(196, 199, 197);
+  background-color: rgb(32, 33, 36);
+}
+
+.search-container {
+  background-color: rgb(32, 33, 36);
+  border-bottom: 1px solid rgb(60, 64, 67);
+  justify-content: center;
+}
+
+.search-col {
+  max-width: 40rem;
+}
+
+.search-input:focus {
+  background-color: rgb(60, 64, 67);
+  border-color: rgb(60, 64, 67);
+  color: rgba(255,255,255,.87);  
+}
+
+.search-input {
+  background-color: rgb(60, 64, 67);
+  border-color: rgb(60, 64, 67);
+  color: rgba(255,255,255,.87);
+}
+
+.stories-container {
+  background-color: rgb(41, 42, 45);
+  justify-content: center;
+}
+
+.stories-col {
+  border-radius: 1rem;
+  background-color: rgb(32, 33, 36);
+  padding: 0 2rem;
+  margin: 2rem;
+  max-width: 40rem;
+}
+
+.stories-card {
+  background-color: rgb(32, 33, 36);
+  border-width: 0;
+}
+
+.stories-card > .card-img-top {
+  border-radius: 1rem;
+}
+
+.stories-message {
+  font-size: 0.8rem;
+  padding-left: 0.5rem;
+}
