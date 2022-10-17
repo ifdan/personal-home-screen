@@ -13,8 +13,8 @@ const WeatherCard = ({userWeather, location}) => {
           </div>
           <div className='weather-text-container'>
             <Card.Text>{location}</Card.Text>
-            <small>{userWeather.weather[0].description}</small>
             <Card.Title>{userWeather.main.temp}°F</Card.Title>
+            <small>{userWeather.weather[0].description}</small>
           </div>
         </Card.Body>
       </Card>
