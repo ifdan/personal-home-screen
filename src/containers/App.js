@@ -35,80 +35,7 @@ function App() {
       }
     }
   
-    urls()
-    .catch(console.warn);
-  }, []);
-
-  useEffect(() => {
-    const getTopHealthStory = async () => {
-      const response = await fetch(`${topNewsUrl}health&apiKey=${newsKey}&pageSize=1`);
-      const data = await response.json();
-      const article = await data.articles[0];
-      console.log(article);
-      setTopStories(prev => [...prev, article]);
-    }
-
-    // getTopHealthStory()
-    // .catch(console.warn);
-  }, []);
-
-  useEffect(() => {
-    const getTopSportsStory = async () => {
-      const response = await fetch(`${topNewsUrl}sports&apiKey=${newsKey}&pageSize=1`);
-      const data = await response.json();
-      const article = await data.articles[0];
-      setTopStories(prev => [...prev, article]);
-    }
-
-    // getTopSportsStory()
-    // .catch(console.warn);
-  }, []);
-
-  useEffect(() => {
-    const getTopBusinessStory = async () => {
-      const response = await fetch(`${topNewsUrl}business&apiKey=${newsKey}&pageSize=1`);
-      const data = await response.json();
-      const article = await data.articles[0];
-      setTopStories(prev => [...prev, article])
-    }
-
-    // getTopBusinessStory()
-    // .catch(console.warn);
-  }, []);
-
-  useEffect(() => {
-    const getTopEntertainmentStory = async () => {
-      const response = await fetch(`${topNewsUrl}entertainment&apiKey=${newsKey}&pageSize=1`);
-      const data = await response.json();
-      const article = await data.articles[0];
-      setTopStories(prev => [...prev, article]);
-    }
-
-    // getTopEntertainmentStory()
-    // .catch(console.warn);
-  }, []);
-
-  useEffect(() => {
-    const getTopScienceStory = async () => {
-      const response = await fetch(`${topNewsUrl}science&apiKey=${newsKey}&pageSize=1`);
-      const data = await response.json();
-      const article = await data.articles[0];
-      setTopStories(prev => [...prev, article]);
-    }
-
-    // getTopScienceStory()
-    // .catch(console.warn);
-  }, []);
-
-  useEffect(() => {
-    const getTopTechnologyStory = async () => {
-      const response = await fetch(`${topNewsUrl}technology&apiKey=${newsKey}&pageSize=1`);
-      const data = await response.json();
-      const article = await data.articles[0];
-      setTopStories(prev => [...prev, article]);
-    }
-
-    // getTopTechnologyStory()
+    // urls()
     // .catch(console.warn);
   }, []);
 
@@ -120,8 +47,8 @@ function App() {
         setCustomSearch(data.articles);
         setCanSearch(false);
       }
-      getNewsInfo()
-      .catch(console.warn);
+      // getNewsInfo()
+      // .catch(console.warn);
     }
   }, [canSearch]);
 
@@ -132,8 +59,8 @@ function App() {
       setLat(data.lat);
       setLon(data.lon);
     }
-    // getGeoInfo()
-    // .catch(console.warn);
+    getGeoInfo()
+    .catch(console.warn);
   }, []);
 
   useEffect(() => {
@@ -144,8 +71,8 @@ function App() {
         setUserWeather(data.list[0]);
       }
 
-      // getWeatherInfo()
-      // .catch(console.warn);
+      getWeatherInfo()
+      .catch(console.warn);
     }
   }, [lon]);
 
@@ -188,10 +115,10 @@ function App() {
           {/* be specific and add a check in the component */}
           <StoriesCard stories={topStories} />
         </Col>
-        {/* <Col>
-          <h3 className="mt-4">Today's Weather</h3>
-          <WeatherCard userWeather={userWeather} />
-        </Col> */}
+        <Col>
+          {/* <h3 className="mt-4">Today's Weather</h3>
+          <WeatherCard userWeather={userWeather} /> */}
+        </Col>
       </Row>
     </Container>
   );
