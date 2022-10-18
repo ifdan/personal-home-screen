@@ -35,6 +35,8 @@ body {
 .name-col {
   display: flex;
   align-items: center;
+  justify-content: center;
+  padding-top: 1rem;
   max-width: 40rem;
 }
 
@@ -45,7 +47,7 @@ body {
 .weather-col {
   max-width: 40rem;
   display: flex;
-  justify-content: flex-end;
+  justify-content: center;
   margin-top: 1rem;
   margin-bottom: 1rem;
 }
@@ -91,10 +93,12 @@ body {
 .stories-container {
   background-color: rgb(41, 42, 45);
   justify-content: center;
+  padding-bottom: 1rem;
 }
 
 .stories-col {
   max-width: 40rem;
+  padding-bottom: 1rem;
 }
 
 .search-headline,
@@ -108,7 +112,7 @@ body {
 }
 
 .stories-card {
-  padding: 0 1rem;
+  padding: 0 1rem 1rem;
 }
 
 .stories-card,
@@ -119,4 +123,19 @@ body {
 
 .stories-card > .card-img-top {
   border-radius: 1rem;
+}
+
+@media (min-width: 992px) {
+  .name-col {
+    justify-content: flex-start;
+    padding-top: 0;
+  }
+
+  .weather-col {
+    justify-content: flex-end;
+  }
+
+  .stories-col {
+    padding-bottom: 0;
+  }
 }
