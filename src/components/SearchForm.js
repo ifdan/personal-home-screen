@@ -8,8 +8,8 @@ const SearchForm = ({ inputValue, setInputValue, setCanSearch }) => {
     if (!e.currentTarget.checkValidity()) {
       setValidated(true);
     } else {
-      setCanSearch(true);
       setValidated(false);
+      setCanSearch(true);
     }
 
     e.preventDefault();

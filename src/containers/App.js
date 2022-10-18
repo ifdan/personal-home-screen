@@ -27,9 +27,8 @@ function App() {
         setTopStories(prev => [...prev, article]);
       }
     }
-  
-    // urls()
-    // .catch(console.warn);
+    urls()
+    .catch(console.warn);
   }, []);
 
   useEffect(() => {
@@ -65,7 +64,6 @@ function App() {
         const data = await response.json();
         setUserWeather(data.list[0]);
       }
-
       getWeatherInfo()
       .catch(console.warn);
     }
@@ -97,14 +95,12 @@ function App() {
                 Your Recently Searched Articles Will be Here.
               </p>
             }
-            {/* be specific and add a check in the component */}
             <StoriesCard stories={customSearch} />
           </div>
         </Col>
         <Col lg={6} className="stories-col">
           <div className="widget-container">
             <h3 className="stories-headline">Top Stories</h3>
-            {/* be specific and add a check in the component */}
             <StoriesCard stories={topStories} />
           </div>
         </Col>
