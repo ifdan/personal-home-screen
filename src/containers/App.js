@@ -82,13 +82,14 @@ function App() {
     <Container fluid className="app">
       <Row className="search-container">
         <Col className="search-col">
-          <Form className="my-4">
+          <Form onSubmit={(e) => e.preventDefault()} className="my-4">
             <InputGroup>
               <Form.Control
                 className="search-input"
                 placeholder="Search With a Keyword"
                 value={inputValue} 
                 onChange={(e) => setInputValue(e.target.value)}
+
               />
               <Button 
                 variant="success" 
