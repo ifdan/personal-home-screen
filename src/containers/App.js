@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { Container, Row, Col, Form, Button, InputGroup } from 'react-bootstrap';
+import { Container, Row, Col } from 'react-bootstrap';
 import '../styles/globalStyles.css';
+import SearchForm from "../components/SearchForm";
 import StoriesCard from "../components/StoriesCard";
 import WeatherCard from "../components/WeatherCard";
 
@@ -27,8 +28,8 @@ function App() {
       }
     }
   
-    urls()
-    .catch(console.warn);
+    // urls()
+    // .catch(console.warn);
   }, []);
 
   useEffect(() => {
@@ -73,24 +74,7 @@ function App() {
     <Container fluid className="app">
       <Row className="search-container">
         <Col className="search-col">
-          <Form onSubmit={(e) => e.preventDefault()} className="my-4">
-            <InputGroup>
-              <Form.Control
-                className="search-input"
-                placeholder="Search With a Keyword"
-                value={inputValue} 
-                onChange={(e) => setInputValue(e.target.value)}
-
-              />
-              <Button 
-                variant="success" 
-                id="search-button"
-                onClick={() => setCanSearch(true)}
-              >
-                Search
-              </Button>
-            </InputGroup>
-          </Form>
+          <SearchForm inputValue={inputValue} setInputValue={setInputValue} setCanSearch={setCanSearch} />
         </Col>
       </Row>
       <Row className="intro-container">
@@ -129,4 +113,3 @@ function App() {
 }
 
 export default App;
-// Time permitting, either weather api working or introduce SASS.
