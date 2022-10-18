@@ -4,16 +4,6 @@ import '../styles/globalStyles.css';
 import StoriesCard from "../components/StoriesCard";
 import WeatherCard from "../components/WeatherCard";
 
-const SearchNewsUrl = 'https://newsapi.org/v2/everything?q=';
-const topNewsUrl = 'https://newsapi.org/v2/top-headlines?country=us&category=';
-const geoURL = 'https://api.openweathermap.org/geo/1.0/zip?zip=';
-const weatherURL = 'https://api.openweathermap.org/data/2.5/forecast';
-
-const newsKey = '4fff2f4a3b08463eae2ecbb4cb05901a';
-const weatherKey = '4d9c706af9a981973446c9fe7d1decac';
-
-const zipCode = '33467';
-
 function App() {
   const [topStories, setTopStories] = useState([]);
   const [customSearch, setCustomSearch] = useState([]);
@@ -23,13 +13,14 @@ function App() {
   const [lat, setLat] = useState();
   const [lon, setLon] = useState();
   const [userWeather, setUserWeather] = useState();
+  const zipCode = '33467';
 
   useEffect(() => {
     const categories = ['health', 'sports', 'business', 'entertainment', 'science', 'technology'];
 
     const urls = async () => {
       for (let i = 0; i < categories.length; i++) {
-        const response = await fetch(`${topNewsUrl}${categories[i]}&apiKey=${newsKey}&pageSize=1`)
+        const response = await fetch(`${process.env.REACT_APP_TOP_NEWS_ENDPOINT}${categories[i]}&apiKey=${process.env.REACT_APP_NEWS_KEY}&pageSize=1`)
         const data = await response.json();
         const article = await data.articles[0];
         setTopStories(prev => [...prev, article]);
@@ -43,7 +34,7 @@ function App() {
   useEffect(() => {
     if (canSearch) {
       async function getNewsInfo() {
-        const response = await fetch(`${SearchNewsUrl}${inputValue}&apiKey=${newsKey}&pageSize=5`);
+        const response = await fetch(`${process.env.REACT_APP_SEARCH_NEWS_ENDPOINT}${inputValue}&apiKey=${process.env.REACT_APP_NEWS_KEY}&pageSize=5`);
         const data = await response.json();
         setCustomSearch(data.articles);
         setCanSearch(false);
@@ -55,7 +46,7 @@ function App() {
 
   useEffect(() => {
     async function getGeoInfo() {
-      const response = await fetch(`${geoURL}${zipCode},US&appid=${weatherKey}`)
+      const response = await fetch(`${process.env.REACT_APP_GEO_LOCATION_ENDPOINT}${zipCode},US&appid=${process.env.REACT_APP_WEATHER_KEY}`)
       const data = await response.json();
       setLocation(data.name);
       setLat(data.lat);
@@ -68,7 +59,7 @@ function App() {
   useEffect(() => {
     if (lon) {
       async function getWeatherInfo() {
-        const response = await fetch(`${weatherURL}?lat=${lat}&lon=${lon}&appid=${weatherKey}&units=imperial`);
+        const response = await fetch(`${process.env.REACT_APP_WEATHER_ENDPOINT}?lat=${lat}&lon=${lon}&appid=${process.env.REACT_APP_WEATHER_KEY}&units=imperial`);
         const data = await response.json();
         setUserWeather(data.list[0]);
       }
