@@ -2,7 +2,6 @@ import Card from 'react-bootstrap/Card';
 import { v4 as uuidv4 } from 'uuid';
 
 const WeatherCard = ({userWeather, location}) => {
-  console.log(userWeather);
   if (userWeather) {
     const weatherIconUrl = `http://openweathermap.org/img/wn/${userWeather.weather[0].icon}@2x.png`;
     return (

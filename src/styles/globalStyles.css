@@ -3,6 +3,11 @@ body {
   background-color: rgb(32, 33, 36);
 }
 
+form .input-group .invalid-tooltip,
+form .input-group .valid-tooltip {
+  border-radius: .375rem !important;
+}
+
 .search-container {
   background-color: rgb(32, 33, 36);
   border-bottom: 1px solid rgb(60, 64, 67);

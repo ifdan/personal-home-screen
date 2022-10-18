@@ -39,6 +39,7 @@ function App() {
         const data = await response.json();
         setCustomSearch(data.articles);
         setCanSearch(false);
+        setInputValue('');
       }
       getNewsInfo()
       .catch(console.warn);
