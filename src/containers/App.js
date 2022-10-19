@@ -33,7 +33,7 @@ function App() {
 
   useEffect(() => {
     if (canSearch) {
-      async function getNewsInfo() {
+      const getNewsInfo = async () => {
         const response = await fetch(`${process.env.REACT_APP_SEARCH_NEWS_ENDPOINT}${inputValue}&apiKey=${process.env.REACT_APP_NEWS_KEY}&pageSize=5`);
         const data = await response.json();
         setCustomSearch(data.articles);
@@ -46,7 +46,7 @@ function App() {
   }, [canSearch]);
 
   useEffect(() => {
-    async function getGeoInfo() {
+    const getGeoInfo = async () => {
       const response = await fetch(`${process.env.REACT_APP_GEO_LOCATION_ENDPOINT}${zipCode},US&appid=${process.env.REACT_APP_WEATHER_KEY}`)
       const data = await response.json();
       setLocation(data.name);
@@ -59,7 +59,7 @@ function App() {
 
   useEffect(() => {
     if (lon) {
-      async function getWeatherInfo() {
+      const getWeatherInfo = async () => {
         const response = await fetch(`${process.env.REACT_APP_WEATHER_ENDPOINT}?lat=${lat}&lon=${lon}&appid=${process.env.REACT_APP_WEATHER_KEY}&units=imperial`);
         const data = await response.json();
         setUserWeather(data.list[0]);
@@ -67,6 +67,7 @@ function App() {
       getWeatherInfo()
       .catch(console.warn);
     }
+
   }, [lon]);
 
   return (

@@ -4,6 +4,8 @@ import { v4 as uuidv4 } from 'uuid';
 const WeatherCard = ({userWeather, location}) => {
   if (userWeather) {
     const weatherIconUrl = `http://openweathermap.org/img/wn/${userWeather.weather[0].icon}@2x.png`;
+    const temp = userWeather.main.temp.toString().slice(0, 2);
+
     return (
       <Card className="weather-card">
         <Card.Body key={uuidv4()}>
@@ -12,7 +14,7 @@ const WeatherCard = ({userWeather, location}) => {
           </div>
           <div className='weather-text-container'>
             <Card.Text>{location}</Card.Text>
-            <Card.Title>{userWeather.main.temp}°F</Card.Title>
+            <Card.Title>{temp}°F</Card.Title>
             <small>{userWeather.weather[0].description}</small>
           </div>
         </Card.Body>
