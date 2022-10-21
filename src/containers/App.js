@@ -21,7 +21,7 @@ function App() {
   useEffect(() => {
     const categories = ['health', 'sports', 'business', 'entertainment', 'science', 'technology'];
 
-    const endPoints = async () => {
+    const getTopStories = async () => {
       for (let i = 0; i < categories.length; i++) {
         const response = await fetch(`${process.env.REACT_APP_TOP_NEWS_ENDPOINT}${categories[i]}&apiKey=${process.env.REACT_APP_NEWS_KEY}&pageSize=1`)
         const data = await response.json();
@@ -29,8 +29,8 @@ function App() {
         setTopStories(prev => [...prev, article]);
       }
     }
-    // endPoints()
-    // .catch(console.warn);
+    getTopStories()
+    .catch(console.warn);
   }, []);
 
   useEffect(() => {
@@ -62,13 +62,15 @@ function App() {
   return (
     <Container fluid className="app">
       <QuestionInput setName={setName} />
-      <ZipCodeInput setLocation={setLocation} setLon={setLon} setLat={setLat} />
-      <Row className="search-container display-none">
+      <ZipCodeInput setLocation={setLocation} setLon={setLon} setLat={setLat} name={name} />
+
+      <Row className={`search-container ${lon ? "display-flex" : "display-none"}`}>
         <Col className="search-col">
           <SearchForm inputValue={inputValue} setInputValue={setInputValue} setCanSearch={setCanSearch} />
         </Col>
       </Row>
-      <Row className="intro-container display-none">
+
+      <Row className={`intro-container ${lon ? "display-flex" : "display-none"}`}>
           <Col lg={6} className="name-col">
             <h2 className="name">Here is your briefing&#44; {name}.</h2>
           </Col>
@@ -78,7 +80,8 @@ function App() {
             </div>
           </Col>
       </Row>
-      <Row className="stories-container display-none">
+      
+      <Row className={`stories-container ${lon ? "display-flex" : "display-none"}`}>
         <Col lg={6} className="stories-col">
           <div className="widget-container">
             <h3 className="search-headline">Recently Searched</h3>

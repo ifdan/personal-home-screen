@@ -1,22 +1,38 @@
-import React, { useRef } from 'react';
-import { Row, Col } from 'react-bootstrap';
+import React, { useState, useRef, useEffect } from 'react';
+import { Row, Col, Form } from 'react-bootstrap';
 
 const QuestionInput = ({ setName }) => {
+  const [validated, setValidated] = useState(false);
   const inputRef = useRef(null);
+
+  useEffect(() => {
+    inputRef.current.focus();
+  }, [])
+
   const handleSubmit = e => {
-    setName(inputRef.current.value);
+    if (!e.currentTarget.checkValidity()) {
+      setValidated(true);
+    } else {
+      setValidated(false);
+      setName(inputRef.current.value);
+    }
+
     e.preventDefault()
   };
 
   return (
-    <Row>
+    <Row className={`${inputRef.current && inputRef.current.value ? "display-none" : "display-flex"}`}>
       <Col xs={12} className="intro-question-container">
-        <form onSubmit={handleSubmit}>
-          <input
-            ref={inputRef}
-            placeholder="What is your name?">
-          </input>
-        </form>
+        <Form noValidate validated={validated} onSubmit={handleSubmit} className="question-form">
+          <Form.Group className="question-input-group">
+            <Form.Label>Hello, what is your name?</Form.Label>
+            <Form.Control
+              type="text"
+              ref={inputRef}
+              required
+            />
+          </Form.Group>
+        </Form>
       </Col>
     </Row>
   )

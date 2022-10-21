@@ -25,10 +25,17 @@ const SearchForm = ({ inputValue, setInputValue, setCanSearch }) => {
           onChange={e => setInputValue(e.target.value)}
           required
         />
-        <Form.Control.Feedback type="invalid" tooltip>
+        <Form.Control.Feedback 
+          type="invalid" 
+          tooltip
+        >
           Enter a keyword.
         </Form.Control.Feedback>
-        <Form.Control.Feedback tooltip>Looks good!</Form.Control.Feedback>
+        <Form.Control.Feedback 
+          tooltip
+        >
+          Looks good!
+        </Form.Control.Feedback>
         <Button 
           type="submit"
           variant="success" 
