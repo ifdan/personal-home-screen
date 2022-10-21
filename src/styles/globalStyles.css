@@ -3,6 +3,60 @@ body {
   background-color: rgb(32, 33, 36);
 }
 
+.display-block {
+  display: block;
+}
+
+.display-flex {
+  display: flex;
+}
+
+.display-none {
+  display: none;
+}
+
+form .input-group .invalid-tooltip,
+form .input-group .valid-tooltip {
+  border-radius: .375rem !important;
+}
+
+.intro-question-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.question-form {
+  max-width: 35rem;
+  width: 100%;
+}
+
+.question-form .form-control:focus,
+.question-form .form-control.is-valid:focus, .was-validated .form-control:valid:focus,
+.question-form .form-control.is-invalid:focus, .was-validated .form-control:invalid:focus {
+  box-shadow: none;
+}
+
+.question-form .form-control {
+  background-color: rgb(32, 33, 36);
+  border-color: rgb(255, 255, 255);
+  border-radius: 0;
+  border-width: 0 0 0.15rem 0;
+  color: rgb(255, 255, 255);
+}
+
+.question-form .question-input-group {
+  color: rgb(255, 255, 255);
+  text-align: center;
+  font-size: 2.7rem;
+}
+
+.question-form input {
+  text-align: center;
+  font-size: 2rem;
+}
+
 .search-container {
   background-color: rgb(32, 33, 36);
   border-bottom: 1px solid rgb(60, 64, 67);

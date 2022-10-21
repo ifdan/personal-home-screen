@@ -4,22 +4,24 @@ import '../styles/globalStyles.css';
 import SearchForm from "../components/SearchForm";
 import StoriesCard from "../components/StoriesCard";
 import WeatherCard from "../components/WeatherCard";
+import QuestionInput from "../components/QuestionInput";
+import ZipCodeInput from "../components/ZipCodeInput";
 
 function App() {
+  const [name, setName] = useState('');
   const [topStories, setTopStories] = useState([]);
   const [customSearch, setCustomSearch] = useState([]);
   const [inputValue, setInputValue] = useState('');
   const [canSearch, setCanSearch] = useState(false);
-  const [location, setLocation] = useState();
+  const [location, setLocation] = useState('');
   const [lat, setLat] = useState();
   const [lon, setLon] = useState();
   const [userWeather, setUserWeather] = useState();
-  const zipCode = '33467';
 
   useEffect(() => {
     const categories = ['health', 'sports', 'business', 'entertainment', 'science', 'technology'];
 
-    const urls = async () => {
+    const getTopStories = async () => {
       for (let i = 0; i < categories.length; i++) {
         const response = await fetch(`${process.env.REACT_APP_TOP_NEWS_ENDPOINT}${categories[i]}&apiKey=${process.env.REACT_APP_NEWS_KEY}&pageSize=1`)
         const data = await response.json();
@@ -27,18 +29,18 @@ function App() {
         setTopStories(prev => [...prev, article]);
       }
     }
-  
-    // urls()
-    // .catch(console.warn);
+    getTopStories()
+    .catch(console.warn);
   }, []);
 
   useEffect(() => {
     if (canSearch) {
-      async function getNewsInfo() {
-        const response = await fetch(`${process.env.REACT_APP_SEARCH_NEWS_ENDPOINT}${inputValue}&apiKey=${process.env.REACT_APP_NEWS_KEY}&pageSize=5`);
+      const getNewsInfo = async () => {
+        const response = await fetch(`${process.env.REACT_APP_SEARCH_NEWS_ENDPOINT}${inputValue}&apiKey=${process.env.REACT_APP_NEWS_KEY}&pageSize=6`);
         const data = await response.json();
         setCustomSearch(data.articles);
         setCanSearch(false);
+        setInputValue('');
       }
       getNewsInfo()
       .catch(console.warn);
@@ -46,25 +48,12 @@ function App() {
   }, [canSearch]);
 
   useEffect(() => {
-    async function getGeoInfo() {
-      const response = await fetch(`${process.env.REACT_APP_GEO_LOCATION_ENDPOINT}${zipCode},US&appid=${process.env.REACT_APP_WEATHER_KEY}`)
-      const data = await response.json();
-      setLocation(data.name);
-      setLat(data.lat);
-      setLon(data.lon);
-    }
-    getGeoInfo()
-    .catch(console.warn);
-  }, []);
-
-  useEffect(() => {
     if (lon) {
-      async function getWeatherInfo() {
+      const getWeatherInfo = async () => {
         const response = await fetch(`${process.env.REACT_APP_WEATHER_ENDPOINT}?lat=${lat}&lon=${lon}&appid=${process.env.REACT_APP_WEATHER_KEY}&units=imperial`);
         const data = await response.json();
         setUserWeather(data.list[0]);
       }
-
       getWeatherInfo()
       .catch(console.warn);
     }
@@ -72,14 +61,18 @@ function App() {
 
   return (
     <Container fluid className="app">
-      <Row className="search-container">
+      <QuestionInput setName={setName} />
+      <ZipCodeInput setLocation={setLocation} setLon={setLon} setLat={setLat} name={name} />
+
+      <Row className={`search-container ${lon ? "display-flex" : "display-none"}`}>
         <Col className="search-col">
           <SearchForm inputValue={inputValue} setInputValue={setInputValue} setCanSearch={setCanSearch} />
         </Col>
       </Row>
-      <Row className="intro-container">
+
+      <Row className={`intro-container ${lon ? "display-flex" : "display-none"}`}>
           <Col lg={6} className="name-col">
-            <h2 className="name">Here is your briefing&#44; Dan.</h2>
+            <h2 className="name">Here is your briefing&#44; {name}.</h2>
           </Col>
           <Col lg={6} className="weather-col">
             <div className="widget-container">
@@ -87,7 +80,8 @@ function App() {
             </div>
           </Col>
       </Row>
-      <Row className="stories-container">
+      
+      <Row className={`stories-container ${lon ? "display-flex" : "display-none"}`}>
         <Col lg={6} className="stories-col">
           <div className="widget-container">
             <h3 className="search-headline">Recently Searched</h3>
@@ -96,14 +90,12 @@ function App() {
                 Your Recently Searched Articles Will be Here.
               </p>
             }
-            {/* be specific and add a check in the component */}
             <StoriesCard stories={customSearch} />
           </div>
         </Col>
         <Col lg={6} className="stories-col">
           <div className="widget-container">
             <h3 className="stories-headline">Top Stories</h3>
-            {/* be specific and add a check in the component */}
             <StoriesCard stories={topStories} />
           </div>
         </Col>
