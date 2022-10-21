@@ -3,9 +3,32 @@ body {
   background-color: rgb(32, 33, 36);
 }
 
+.display-block {
+  display: block;
+}
+
+.display-flex {
+  display: flex;
+}
+
+.display-none {
+  display: none;
+}
+
 form .input-group .invalid-tooltip,
 form .input-group .valid-tooltip {
   border-radius: .375rem !important;
+}
+
+.intro-question-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.intro-question {
+  display: none;
 }
 
 .search-container {

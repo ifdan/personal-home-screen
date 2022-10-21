@@ -22,7 +22,7 @@ const SearchForm = ({ inputValue, setInputValue, setCanSearch }) => {
           className="search-input"
           placeholder="Search With a Keyword"
           value={inputValue} 
-          onChange={(e) => setInputValue(e.target.value)}
+          onChange={e => setInputValue(e.target.value)}
           required
         />
         <Form.Control.Feedback type="invalid" tooltip>
