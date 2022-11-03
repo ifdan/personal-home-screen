@@ -3,17 +3,17 @@ import { Container, Row, Col } from 'react-bootstrap';
 import Navigation from './Navigation';
 import StoriesCard from './StoriesCard';
 
-const Health = () => {
-  const [healthStories, setHealthStories] = useState([]);
+const Sports = () => {
+  const [sportsStories, setSportsStories] = useState([]);
 
   useEffect(() => {
-    const getHealthStories = async () => {
-      const response = await fetch(`${process.env.REACT_APP_TOP_NEWS_ENDPOINT}health&apiKey=${process.env.REACT_APP_NEWS_KEY}&pageSize=12`)
+    const getSportsStories = async () => {
+      const response = await fetch(`${process.env.REACT_APP_TOP_NEWS_ENDPOINT}sports&apiKey=${process.env.REACT_APP_NEWS_KEY}&pageSize=12`)
       const data = await response.json();
       const articles = await data.articles;
-      setHealthStories(articles);
+      setSportsStories(articles);
     }
-    getHealthStories()
+    getSportsStories()
     .catch(console.warn);
   }, []);
 
@@ -24,16 +24,16 @@ const Health = () => {
           <Navigation />
         </Col>
         <Col xs={12}>
-          <h3 className="stories-headline">Top Health Stories</h3>
+          <h3 className="stories-headline">Top Sports Stories</h3>
         </Col>
         <Col xs={12}>
           <Row xs={1} md={3}>
-            <StoriesCard stories={healthStories} />
+            <StoriesCard stories={sportsStories} />
           </Row>
-        </Col> 
+        </Col>
       </Row>
     </Container>
   )
 }
 
-export default Health;
+export default Sports;

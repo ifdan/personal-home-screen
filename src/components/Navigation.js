@@ -3,11 +3,11 @@ import {Container, Nav, Navbar } from 'react-bootstrap';
 
 const Navigation = () => {
   return (
-    <Navbar bg="dark" variant="dark">
+    <Navbar expand="lg" className="pt-4 navigation">
       <Container>
-        <Nav className="me-auto">
+        <Nav>
           <Navbar.Text>
-            <Link to="/">Home</Link>
+            <Link to="/" style={{ color: 'rgb(255, 255, 255)'}}>Home</Link>
           </Navbar.Text>
           <Navbar.Text>
             <Link to="/health">Health</Link>

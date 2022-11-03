@@ -30,8 +30,8 @@ const Home = () => {
         setTopStories(prev => [...prev, article]);
       }
     }
-    // getTopStories()
-    // .catch(console.warn);
+    getTopStories()
+    .catch(console.warn);
   }, []);
 
   useEffect(() => {
@@ -61,7 +61,7 @@ const Home = () => {
   }, [lon]);
 
   return (
-    <Container fluid className="app">
+    <Container fluid className="home">
       <QuestionInput setName={setName} />
       <ZipCodeInput setLocation={setLocation} setLon={setLon} setLat={setLat} name={name} />
 
@@ -94,13 +94,17 @@ const Home = () => {
                 Your Recently Searched Articles Will be Here.
               </p>
             }
-            <StoriesCard stories={customSearch} />
+            <Row xs={1}>
+              <StoriesCard stories={customSearch} />
+            </Row>
           </div>
         </Col>
         <Col lg={6} className="stories-col">
           <div className="widget-container">
             <h3 className="stories-headline">Top Stories</h3>
-            <StoriesCard stories={topStories} />
+            <Row xs={1}>
+              <StoriesCard stories={topStories} />
+            </Row>
           </div>
         </Col>
       </Row>

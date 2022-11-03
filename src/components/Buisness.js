@@ -3,17 +3,17 @@ import { Container, Row, Col } from 'react-bootstrap';
 import Navigation from './Navigation';
 import StoriesCard from './StoriesCard';
 
-const Health = () => {
-  const [healthStories, setHealthStories] = useState([]);
+const Business = () => {
+  const [buisnessStories, setBuisnessStories] = useState([]);
 
   useEffect(() => {
-    const getHealthStories = async () => {
-      const response = await fetch(`${process.env.REACT_APP_TOP_NEWS_ENDPOINT}health&apiKey=${process.env.REACT_APP_NEWS_KEY}&pageSize=12`)
+    const getBuisnessStories = async () => {
+      const response = await fetch(`${process.env.REACT_APP_TOP_NEWS_ENDPOINT}business&apiKey=${process.env.REACT_APP_NEWS_KEY}&pageSize=12`)
       const data = await response.json();
       const articles = await data.articles;
-      setHealthStories(articles);
+      setBuisnessStories(articles);
     }
-    getHealthStories()
+    getBuisnessStories()
     .catch(console.warn);
   }, []);
 
@@ -24,16 +24,16 @@ const Health = () => {
           <Navigation />
         </Col>
         <Col xs={12}>
-          <h3 className="stories-headline">Top Health Stories</h3>
+          <h3 className="stories-headline">Top Business Stories</h3>
         </Col>
         <Col xs={12}>
           <Row xs={1} md={3}>
-            <StoriesCard stories={healthStories} />
+            <StoriesCard stories={buisnessStories} />
           </Row>
-        </Col> 
+        </Col>
       </Row>
     </Container>
   )
 }
 
-export default Health;
+export default Business;
