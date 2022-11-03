@@ -7,8 +7,8 @@ function StoriesCard({stories}) {
     {
      stories.map(story => {
       return (      
-        <Col>
-          <Card className="mt-4 stories-card" key={uuidv4()}>
+        <Col key={uuidv4()}>
+          <Card className="mt-4 stories-card">
             <Card.Img variant="top" src={story.urlToImage} />
             <Card.Body>
               <Card.Subtitle className='my-2'>{story.source.name}</Card.Subtitle>
