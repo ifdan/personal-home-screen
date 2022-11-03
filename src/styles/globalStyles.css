@@ -57,6 +57,28 @@ form .input-group .valid-tooltip {
   font-size: 2rem;
 }
 
+.navigation {
+  background-color: rgb(32, 33, 36);
+}
+
+.navigation .container {
+  justify-content: center;
+}
+
+.navigation .navbar-text {
+  padding-left: 2rem;
+  padding-right: 2rem;
+}
+
+.navigation .navbar-text a:hover {
+  color: rgb(255, 255, 255);
+}
+
+.navigation .navbar-text a {
+  color:  rgb(196, 199, 197);
+  text-decoration: none;
+}
+
 .search-container {
   background-color: rgb(32, 33, 36);
   border-bottom: 1px solid rgb(60, 64, 67);

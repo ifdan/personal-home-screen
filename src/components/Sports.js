@@ -1,0 +1,39 @@
+import { useState, useEffect } from 'react';
+import { Container, Row, Col } from 'react-bootstrap';
+import Navigation from './Navigation';
+import StoriesCard from './StoriesCard';
+
+const Sports = () => {
+  const [sportsStories, setSportsStories] = useState([]);
+
+  useEffect(() => {
+    const getSportsStories = async () => {
+      const response = await fetch(`${process.env.REACT_APP_TOP_NEWS_ENDPOINT}sports&apiKey=${process.env.REACT_APP_NEWS_KEY}&pageSize=12`)
+      const data = await response.json();
+      const articles = await data.articles;
+      setSportsStories(articles);
+    }
+    getSportsStories()
+    .catch(console.warn);
+  }, []);
+
+  return (
+    <Container fluid>
+      <Row>
+        <Col xs={12}>
+          <Navigation />
+        </Col>
+        <Col xs={12}>
+          <h3 className="stories-headline">Top Sports Stories</h3>
+        </Col>
+        <Col xs={12}>
+          <Row xs={1} md={3}>
+            <StoriesCard stories={sportsStories} />
+          </Row>
+        </Col>
+      </Row>
+    </Container>
+  )
+}
+
+export default Sports;
