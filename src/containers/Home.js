@@ -10,11 +10,11 @@ import ZipCodeInput from "../components/ZipCodeInput";
 
 const Home = () => {
   const [name, setName] = useState(localStorage.getItem("name"));
+  const [location, setLocation] = useState(localStorage.getItem("zipCode"));
   const [topStories, setTopStories] = useState([]);
   const [customSearch, setCustomSearch] = useState([]);
   const [inputValue, setInputValue] = useState('');
   const [canSearch, setCanSearch] = useState(false);
-  const [location, setLocation] = useState(localStorage.getItem("zipCode"));
   const [lat, setLat] = useState();
   const [lon, setLon] = useState();
   const [userWeather, setUserWeather] = useState();
