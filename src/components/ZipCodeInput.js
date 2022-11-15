@@ -29,7 +29,7 @@ const ZipCodeInput = ({ setLocation, setLat, setLon, name }) => {
 
     e.preventDefault();
   }
-
+console.log(name);
   return (
     <>
     {name !== "" &&
