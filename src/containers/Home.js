@@ -40,8 +40,8 @@ const Home = () => {
         setTopStories(prev => [...prev, article]);
       }
     }
-    // getTopStories()
-    // .catch(console.warn);
+    getTopStories()
+    .catch(console.warn);
   }, []);
 
   useEffect(() => {
@@ -53,10 +53,10 @@ const Home = () => {
         setCanSearch(false);
         setInputValue('');
       }
-      // getNewsInfo()
-      // .catch(console.warn);
+      getNewsInfo()
+      .catch(console.warn);
     }
-  }, [canSearch]);
+  }, [canSearch, inputValue]);
 
   useEffect(() => {
     if (lon) {
@@ -64,6 +64,7 @@ const Home = () => {
         const response = await fetch(`${process.env.REACT_APP_WEATHER_ENDPOINT}?lat=${lat}&lon=${lon}&appid=${process.env.REACT_APP_WEATHER_KEY}&units=imperial`);
         const data = await response.json();
         setUserWeather(data.list[0]);
+        console.log("weather called");
       }
       getWeatherInfo()
       .catch(console.warn);
@@ -74,7 +75,7 @@ const Home = () => {
     <Container fluid className="home">
       {!name &&
         <>
-          <QuestionInput setName={customSetName} />
+          <QuestionInput setName={customSetName} name={name} />
         </>
       }
 
