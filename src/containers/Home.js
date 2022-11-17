@@ -9,15 +9,25 @@ import QuestionInput from "../components/QuestionInput";
 import ZipCodeInput from "../components/ZipCodeInput";
 
 const Home = () => {
-  const [name, setName] = useState('');
+  const [name, setName] = useState(localStorage.getItem("name"));
+  const [location, setLocation] = useState(localStorage.getItem("zipCode"));
   const [topStories, setTopStories] = useState([]);
   const [customSearch, setCustomSearch] = useState([]);
   const [inputValue, setInputValue] = useState('');
   const [canSearch, setCanSearch] = useState(false);
-  const [location, setLocation] = useState('');
   const [lat, setLat] = useState();
   const [lon, setLon] = useState();
   const [userWeather, setUserWeather] = useState();
+
+  const customSetName = (name) => {
+    setName(name);
+    localStorage.setItem("name", name);
+  }
+
+  const customSetLocation = (zipCode) => {
+    setLocation(zipCode);
+    localStorage.setItem("zipCode", zipCode);
+  }
 
   useEffect(() => {
     const categories = ['health', 'sports', 'business', 'entertainment', 'science', 'technology'];
@@ -46,7 +56,7 @@ const Home = () => {
       getNewsInfo()
       .catch(console.warn);
     }
-  }, [canSearch]);
+  }, [canSearch, inputValue]);
 
   useEffect(() => {
     if (lon) {
@@ -54,6 +64,7 @@ const Home = () => {
         const response = await fetch(`${process.env.REACT_APP_WEATHER_ENDPOINT}?lat=${lat}&lon=${lon}&appid=${process.env.REACT_APP_WEATHER_KEY}&units=imperial`);
         const data = await response.json();
         setUserWeather(data.list[0]);
+        console.log("weather called");
       }
       getWeatherInfo()
       .catch(console.warn);
@@ -62,10 +73,19 @@ const Home = () => {
 
   return (
     <Container fluid className="home">
-      <QuestionInput setName={setName} />
-      <ZipCodeInput setLocation={setLocation} setLon={setLon} setLat={setLat} name={name} />
+      {!name &&
+        <>
+          <QuestionInput setName={customSetName} name={name} />
+        </>
+      }
 
-      <Row className={`search-container ${lon ? "display-flex" : "display-none"}`}>
+      {!location &&
+        <>
+          <ZipCodeInput setLocation={customSetLocation} setLon={setLon} setLat={setLat} name={name} />
+        </>
+      }
+
+      <Row className={`search-container ${location ? "display-flex" : "display-none"}`}>
         <Col xs={12} className="search-col">
           <SearchForm inputValue={inputValue} setInputValue={setInputValue} setCanSearch={setCanSearch} />
         </Col>
@@ -74,7 +94,7 @@ const Home = () => {
         </Col>
       </Row>
 
-      <Row className={`intro-container ${lon ? "display-flex" : "display-none"}`}>
+      <Row className={`intro-container ${location ? "display-flex" : "display-none"}`}>
           <Col lg={6} className="name-col">
             <h2 className="name">Here is your briefing&#44; {name}.</h2>
           </Col>
@@ -85,7 +105,7 @@ const Home = () => {
           </Col>
       </Row>
       
-      <Row className={`stories-container ${lon ? "display-flex" : "display-none"}`}>
+      <Row className={`stories-container ${location ? "display-flex" : "display-none"}`}>
         <Col lg={6} className="stories-col">
           <div className="widget-container">
             <h3 className="search-headline">Recently Searched</h3>

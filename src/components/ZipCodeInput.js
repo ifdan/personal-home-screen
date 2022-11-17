@@ -6,7 +6,7 @@ const ZipCodeInput = ({ setLocation, setLat, setLon, name }) => {
   const zipCodeRef = useRef(null);
 
   useEffect(() => {
-    if (name !== "") {
+    if (name !== null) {
       zipCodeRef.current.focus();
     }
   }, [name])
@@ -32,8 +32,8 @@ const ZipCodeInput = ({ setLocation, setLat, setLon, name }) => {
 
   return (
     <>
-    {name !== "" &&
-      <Row className={`${zipCodeRef.current && zipCodeRef.current.value ? "display-none" : "display-flex"}`}>
+    {name !== null &&
+      <Row className="display-flex">
         <Col xs={12} className="intro-question-container">
           <Form noValidate validated={validated} onSubmit={handleSubmit} className="question-form">
             <Form.Group className="question-input-group">
