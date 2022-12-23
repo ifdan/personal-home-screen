@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Row, Col, Form } from 'react-bootstrap';
 
-const ZipCodeInput = ({ setLocation, setLat, setLon, name }) => {
+const ZipCodeInput = ({ setLocation, setLat, setLon, name, setUserWeather }) => {
   const [validated, setValidated] = useState(false);
   const zipCodeRef = useRef(null);
 
@@ -24,11 +24,21 @@ const ZipCodeInput = ({ setLocation, setLat, setLon, name }) => {
         setLon(data.lon);
       }
       getGeoInfo()
-      .catch(console.warn);
-    }
+        .then(() => {
+          const getWeatherInfo = async () => {
+            const response = await fetch(`${process.env.REACT_APP_WEATHER_ENDPOINT}?lat=${localStorage.getItem('lat')}&lon=${localStorage.getItem('lon')}&appid=${process.env.REACT_APP_WEATHER_KEY}&units=imperial`);
+            const data = await response.json();
+            setUserWeather(data);
+            }
+            getWeatherInfo()
+            .catch(console.warn);
 
-    e.preventDefault();
-  }
+            })
+          .catch(console.warn);
+        }
+
+        e.preventDefault();
+      }
 
   return (
     <>

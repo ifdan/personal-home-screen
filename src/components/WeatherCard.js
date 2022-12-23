@@ -13,7 +13,7 @@ const WeatherCard = ({userWeather, location}) => {
             <img src={weatherIconUrl}></img>
           </div>
           <div className='weather-text-container'>
-            <Card.Text>{location}</Card.Text>
+            <Card.Text>{userWeather.name}</Card.Text>
             <Card.Title>{temp}°F</Card.Title>
             <small>{userWeather.weather[0].description}</small>
           </div>

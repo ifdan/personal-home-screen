@@ -29,6 +29,16 @@ const Home = () => {
     localStorage.setItem("zipCode", zipCode);
   }
 
+  const customSetLon = (lon) => {
+    setLocation(lon);
+    localStorage.setItem("lon", lon);
+  }
+
+  const customSetLat = (lat) => {
+    setLocation(lat);
+    localStorage.setItem("lat", lat);
+  }
+
   useEffect(() => {
     const categories = ['health', 'sports', 'business', 'entertainment', 'science', 'technology'];
 
@@ -57,19 +67,17 @@ const Home = () => {
       .catch(console.warn);
     }
   }, [canSearch, inputValue]);
-
   useEffect(() => {
-    if (lon) {
+    if (localStorage.getItem('lat')) {
       const getWeatherInfo = async () => {
-        const response = await fetch(`${process.env.REACT_APP_WEATHER_ENDPOINT}?lat=${lat}&lon=${lon}&appid=${process.env.REACT_APP_WEATHER_KEY}&units=imperial`);
+        const response = await fetch(`${process.env.REACT_APP_WEATHER_ENDPOINT}?lat=${localStorage.getItem('lat')}&lon=${localStorage.getItem('lon')}&appid=${process.env.REACT_APP_WEATHER_KEY}&units=imperial`);
         const data = await response.json();
-        setUserWeather(data.list[0]);
-        console.log("weather called");
+        setUserWeather(data);
       }
       getWeatherInfo()
       .catch(console.warn);
     }
-  }, [lon]);
+  }, []);
 
   return (
     <Container fluid className="home">
@@ -81,7 +89,7 @@ const Home = () => {
 
       {!location &&
         <>
-          <ZipCodeInput setLocation={customSetLocation} setLon={setLon} setLat={setLat} name={name} />
+          <ZipCodeInput setLocation={customSetLocation} setLon={customSetLon} setLat={customSetLat} name={name} setUserWeather={setUserWeather} />
         </>
       }
 
@@ -104,7 +112,7 @@ const Home = () => {
             </div>
           </Col>
       </Row>
-      
+
       <Row className={`stories-container ${location ? "display-flex" : "display-none"}`}>
         <Col lg={6} className="stories-col">
           <div className="widget-container">
